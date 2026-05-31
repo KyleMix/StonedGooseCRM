@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "description": "Stoned Goose Productions — local-first business operations hub (CRM, pipeline, jobs, finance).",
+  "engines": {
+    "node": ">=18.18"
+  },
   "scripts": {
     "postinstall": "prisma generate",
     "predev": "prisma migrate deploy && tsx prisma/seed.ts",
     "dev": "next dev",
     "build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
+    "test": "node --import tsx --test src/lib/finance.test.ts src/lib/jobs.test.ts src/lib/utils.test.ts",
+    "typecheck": "tsc --noEmit",
     "db:reset": "prisma migrate reset --force && tsx prisma/seed.ts",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio"
