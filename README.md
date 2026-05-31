@@ -49,19 +49,33 @@ workspace **Stoned Goose Hub**, and recreate the data model per
 ## Layout
 
 ```
-apps/twenty/              git submodule → twentyhq/twenty @ v2.8.3
-infra/docker-compose.yml  server, worker, db (Postgres 16), redis
-infra/.env.example        documented secrets
-docs/runbook.md           backup, restore, upgrade procedures
+apps/twenty/                git submodule → twentyhq/twenty @ v2.8.3
+infra/docker-compose.yml    all services (Phase A + B)
+infra/.env.example          documented secrets
+infra/scripts/              dev helpers (e.g. generate-documenso-cert.sh)
+integrations/
+  documenso-webhook/        flips Job.contractSigned on document.completed
+  calcom-webhook/           creates a Job on BOOKING_CREATED
+  shared/                   Twenty REST client + HMAC verifier
+docs/runbook.md             backup, restore, upgrade, phase-B setup
 docs/twenty-custom-objects.md   custom object/field definitions
 ```
 
+## Ports
+
+| Service | URL |
+|---|---|
+| Twenty | <http://localhost:3000> |
+| Cal.com | <http://localhost:3001> |
+| Documenso | <http://localhost:3002> |
+| Documenso webhook | http://localhost:3003 (internal) |
+| Cal.com webhook | http://localhost:3004 (internal) |
+| Mailpit (captured dev email) | <http://localhost:8025> |
+
 ## Phase status
 
-- **Phase A (current)**: Twenty only. Done.
-- **Phase B (deferred)**: add Cal.com (scheduling) + Documenso
-  (e-signature) with webhook glue.
-- **Phase C (deferred)**: add Mautic (marketing), Chatwoot (support),
+- **Phase A**: Twenty only. Done.
+- **Phase B**: Cal.com (scheduling) + Documenso (e-signature) + webhook
+  glue. Done. See `docs/runbook.md` for first-time setup.
+- **Phase C (deferred)**: Mautic (marketing), Chatwoot (support),
   InvoiceShelf (invoicing).
-
-Phase B/C are not started until Phase A has soaked for at least 2 weeks.

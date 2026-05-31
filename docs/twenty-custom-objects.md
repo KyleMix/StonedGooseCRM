@@ -58,6 +58,7 @@ Add custom fields:
 | `deliveryDate` | Date/Time | |
 | `runOfShow` | Text (multi-line) | |
 | `notes` | Text (multi-line) | |
+| `externalId` | Text | **Required for Phase B**: Documenso envelope id or Cal.com booking uid — lets webhooks find this Job to update. |
 | `client` | Relation → Person | |
 | `venue` | Relation → Company | |
 | `package` | Relation → Package | |
