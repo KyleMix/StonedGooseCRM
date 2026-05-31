@@ -55,7 +55,6 @@ infra/.env.example          documented secrets
 infra/scripts/              dev helpers (e.g. generate-documenso-cert.sh)
 integrations/
   documenso-webhook/        flips Job.contractSigned on document.completed
-  calcom-webhook/           creates a Job on BOOKING_CREATED
   shared/                   Twenty REST client + HMAC verifier
 docs/runbook.md             backup, restore, upgrade, phase-B setup
 docs/twenty-custom-objects.md   custom object/field definitions
@@ -66,16 +65,17 @@ docs/twenty-custom-objects.md   custom object/field definitions
 | Service | URL |
 |---|---|
 | Twenty | <http://localhost:3000> |
-| Cal.com | <http://localhost:3001> |
 | Documenso | <http://localhost:3002> |
 | Documenso webhook | http://localhost:3003 (internal) |
-| Cal.com webhook | http://localhost:3004 (internal) |
 | Mailpit (captured dev email) | <http://localhost:8025> |
 
 ## Phase status
 
 - **Phase A**: Twenty only. Done.
-- **Phase B**: Cal.com (scheduling) + Documenso (e-signature) + webhook
-  glue. Done. See `docs/runbook.md` for first-time setup.
+- **Phase B**: Documenso (e-signature) + webhook glue. Done. See
+  `docs/runbook.md` for first-time setup. Cal.com was evaluated and
+  dropped — its published Docker image bakes `NEXT_PUBLIC_WEBAPP_URL` at
+  build time, which prevents running it on a sibling port to Twenty in
+  the same compose stack. Revisit with a real domain + reverse proxy.
 - **Phase C (deferred)**: Mautic (marketing), Chatwoot (support),
   InvoiceShelf (invoicing).
