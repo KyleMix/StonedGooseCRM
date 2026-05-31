@@ -17,14 +17,27 @@ handled by Docker Compose in `infra/`.
 
 ## Quick start (local dev)
 
-```sh
-git clone --recurse-submodules <this-repo>
-cd StonedGooseCRM/infra
-cp .env.example .env
+**Fresh clone:**
 
-# Generate secrets and paste them into .env
-openssl rand -base64 32   # → ENCRYPTION_KEY
-openssl rand -base64 32   # → APP_SECRET
+```sh
+git clone --recurse-submodules https://github.com/KyleMix/StonedGooseCRM.git
+cd StonedGooseCRM
+```
+
+**Already cloned without submodules?** From the repo root:
+
+```sh
+git submodule update --init --recursive
+```
+
+Then, from the repo root:
+
+```sh
+cd infra
+cp .env.example .env
+# Edit .env and set ENCRYPTION_KEY + APP_SECRET. Generate each with:
+#   openssl rand -base64 32
+# Also set a strong PG_DATABASE_PASSWORD (no special chars).
 
 docker compose up -d
 ```
