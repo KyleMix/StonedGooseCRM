@@ -69,6 +69,8 @@ docs/
   runbook.md                Backup, restore, upgrade, phase-B setup
   twenty-custom-objects.md  Data model spec (source of truth)
   twenty-workflows.md       Workflow recipes (booking gate, prep tasks, etc.)
+  mobile-access.md          Path to making the CRM reachable from team phones
+  sops/                     Team handbook (Standard Operating Procedures)
 ```
 
 ## Ports
@@ -82,15 +84,21 @@ docs/
 
 ## Customizing for Stoned Goose Productions
 
-1. Build the data model in Twenty per `docs/twenty-custom-objects.md`.
+1. Build the data model in Twenty per `docs/twenty-custom-objects.md`
+   (includes the SOP custom object).
 2. Edit the `seed-data/*.json` files with your real Packages, Venues,
-   Vendors, and Crew, then `bash infra/scripts/seed-stoned-goose.sh`
+   Vendors, Crew, and SOPs, then `bash infra/scripts/seed-stoned-goose.sh`
    to populate the workspace.
 3. Configure the workflows in `docs/twenty-workflows.md` (start with
    the booking gate; others are optional).
-4. Use the contract scaffolds in `documenso-templates/` as starting
+4. Refine the SOP scaffolds in `docs/sops/` to match how your team
+   actually works. Each markdown file is one procedure; Twenty's SOP
+   object indexes them for search.
+5. Use the contract scaffolds in `documenso-templates/` as starting
    points for your Documenso templates. Have an attorney review final
    language.
+6. When ready to give the team mobile access, follow
+   `docs/mobile-access.md` (small VPS + Caddy + domain, ~$5-15/mo).
 
 ## Phase status
 

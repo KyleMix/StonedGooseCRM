@@ -31,6 +31,7 @@ without separate object types.
 | A vendor quote for gear or post | **Quote** (custom) |
 | A to-do (any kind) | **Task** with `category`, `priority` |
 | A signed contract / paid deposit | Boolean flags on **Job** + Phase B Documenso bridge |
+| A team procedure / playbook | **SOP** (custom, indexes `docs/sops/*.md`) |
 
 ## Built-in objects (extended)
 
@@ -134,6 +135,24 @@ specific Job.
 | `dateQuoted` | Date/Time | |
 | `link` | Text | URL to the quote document |
 | `notes` | Text (multi-line) | |
+
+### SOP
+
+The team handbook index. Source-of-truth content lives in
+`docs/sops/*.md` (versioned in git); each markdown file gets one row
+here so the team can search and discover SOPs from Twenty.
+
+| Field | Type | Notes |
+|---|---|---|
+| `name` | Text (built-in) | SOP title, e.g. "Pre-Shoot Gear Pull" |
+| `category` | Select | `Sales`, `Production`, `Post-production`, `Delivery`, `Admin`, `HR / Crew`, `Finance` |
+| `summary` | Text (multi-line) | 1–2 sentence purpose statement (so the team can search & skim) |
+| `docPath` | Text | Repo-relative path, e.g. `docs/sops/pre-shoot-gear-pull.md` |
+| `docUrl` | Text | Public URL once the docs are published (GitHub blob URL, or a hosted docs site) |
+| `owner` | Relation → Person | Who's accountable for keeping this SOP current |
+| `appliesTo` | Multi-select | `All crew`, `Camera`, `Audio`, `Editor`, `Producer`, `Finance`, `Sales` |
+| `status` | Select | `Draft`, `Active`, `Needs review`, `Archived` (default `Draft`) |
+| `lastReviewed` | Date | When the SOP was last gone over for accuracy |
 
 ## Workflows
 

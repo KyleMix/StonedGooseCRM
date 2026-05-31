@@ -152,6 +152,43 @@ async function seedCrew(): Promise<void> {
   }
 }
 
+interface SopRow {
+  name: string;
+  category?: string;
+  summary?: string;
+  docPath?: string;
+  docUrl?: string;
+  status?: string;
+}
+
+async function seedSops(): Promise<void> {
+  const rows = await loadJson<SopRow & Record<string, unknown>>("sops.json");
+  for (const row of rows) {
+    if (isPlaceholder(row)) {
+      console.log(`[sops] skip placeholder: ${row.name}`);
+      continue;
+    }
+    const filter = encodeURIComponent(`name[eq]:"${row.name}"`);
+    const existing = await call<{ data: { sops: Array<{ id: string }> } }>(
+      "GET",
+      `/rest/sops?filter=${filter}&limit=1`,
+    );
+    if (existing.data.sops[0]) {
+      console.log(`[sops] exists, skip: ${row.name}`);
+      continue;
+    }
+    await call("POST", "/rest/sops", {
+      name: row.name,
+      category: row.category ?? null,
+      summary: row.summary ?? null,
+      docPath: row.docPath ?? null,
+      docUrl: row.docUrl ?? null,
+      status: row.status ?? "Draft",
+    });
+    console.log(`[sops] created: ${row.name}`);
+  }
+}
+
 async function main(): Promise<void> {
   console.log(`Seeding Twenty at ${TWENTY_API_URL}`);
   try {
@@ -159,6 +196,7 @@ async function main(): Promise<void> {
     await seedCompanies("venues.json", "Venue");
     await seedCompanies("vendors.json", "Vendor");
     await seedCrew();
+    await seedSops();
     console.log("Done.");
   } catch (err) {
     console.error((err as Error).message);

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Lead Intake",
+    "category": "Sales",
+    "summary": "Every inbound inquiry becomes a Twenty record within 1 business hour, and the prospect gets a real reply within 24 hours.",
+    "docPath": "docs/sops/lead-intake.md",
+    "status": "Active"
+  },
+  {
+    "name": "Pre-Shoot Gear Pull",
+    "category": "Production",
+    "summary": "Every shoot leaves the studio with the right kit, packed, charged, and labeled. Triggered when a Job enters In Prep.",
+    "docPath": "docs/sops/pre-shoot-gear-pull.md",
+    "status": "Draft"
+  },
+  {
+    "name": "Day-of-Shoot Brief",
+    "category": "Production",
+    "summary": "Crew arrives knowing the schedule, their role, the client expectation, and the wrap target.",
+    "docPath": "docs/sops/day-of-shoot-brief.md",
+    "status": "Draft"
+  },
+  {
+    "name": "Post-Shoot Data Wrangling",
+    "category": "Post-production",
+    "summary": "Every card lands in two destinations with verified checksums before any card is wiped. No footage loss.",
+    "docPath": "docs/sops/post-shoot-data-wrangling.md",
+    "status": "Draft"
+  },
+  {
+    "name": "First-Cut Review",
+    "category": "Post-production",
+    "summary": "Get the first watchable cut in front of internal eyes (then client) with structured feedback.",
+    "docPath": "docs/sops/first-cut-review.md",
+    "status": "Draft"
+  },
+  {
+    "name": "Final Delivery + Invoice",
+    "category": "Delivery",
+    "summary": "Final files reach the client, the final invoice goes out, and the Job moves to Delivered.",
+    "docPath": "docs/sops/final-delivery-and-invoice.md",
+    "status": "Draft"
+  },
+  {
+    "name": "Crew Onboarding",
+    "category": "HR / Crew",
+    "summary": "New freelance crew end up in the right systems on day one: Twenty, contracted, paid setup, gear-access permission.",
+    "docPath": "docs/sops/crew-onboarding.md",
+    "status": "Draft"
+  },
+  {
+    "name": "Vendor Onboarding",
+    "category": "Admin",
+    "summary": "Bringing on a new vendor is fast and consistent so future Quotes and Jobs reference them cleanly.",
+    "docPath": "docs/sops/vendor-onboarding.md",
+    "status": "Draft"
+  }
+]
