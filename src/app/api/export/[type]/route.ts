@@ -45,8 +45,8 @@ function sheetFor(key: string, records: any[]) {
   return XLSX.utils.aoa_to_sheet(aoa);
 }
 
-export async function GET(_req: NextRequest, { params }: { params: { type: string } }) {
-  const type = params.type;
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ type: string }> }) {
+  const { type } = await params;
   const wb = XLSX.utils.book_new();
 
   // File-naming convention: YYYY-MM-DD_StonedGoose_<Doc>_v1.xlsx
