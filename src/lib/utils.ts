@@ -28,10 +28,14 @@ export function formatDate(value: Date | string | null | undefined): string {
   if (!value) return "—";
   const d = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(d.getTime())) return "—";
+  // Date inputs are parsed and stored as UTC midnight (see parseDate), so render
+  // in UTC too. Without this, the server/user local zone (e.g. America/Los_Angeles,
+  // UTC-7/8) shifts every date one day earlier on display.
   return d.toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    timeZone: "UTC",
   });
 }
 
@@ -80,8 +84,12 @@ export function isDueWithin(date: Date | string | null | undefined, days: number
   if (!date) return false;
   const d = typeof date === "string" ? new Date(date) : date;
   if (Number.isNaN(d.getTime())) return false;
+  // Dates are stored date-only at UTC midnight and displayed in UTC (see
+  // formatDate), so compare on the UTC calendar day. This keeps "due today" and
+  // "overdue" stable regardless of the server/user local clock.
+  const MS_PER_DAY = 86_400_000;
+  const dueDay = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
   const now = new Date();
-  const horizon = new Date();
-  horizon.setDate(now.getDate() + days);
-  return d <= horizon;
+  const todayDay = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+  return dueDay <= todayDay + days * MS_PER_DAY;
 }
