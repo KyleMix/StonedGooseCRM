@@ -1,4 +1,3 @@
-infra/volumes/
 infra/.env
 **/.env
 **/.env.local

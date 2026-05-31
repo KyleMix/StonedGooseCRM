@@ -52,7 +52,6 @@ workspace **Stoned Goose Hub**, and recreate the data model per
 apps/twenty/              git submodule → twentyhq/twenty @ v2.8.3
 infra/docker-compose.yml  server, worker, db (Postgres 16), redis
 infra/.env.example        documented secrets
-infra/volumes/            bind-mounted data (gitignored)
 docs/runbook.md           backup, restore, upgrade procedures
 docs/twenty-custom-objects.md   custom object/field definitions
 ```

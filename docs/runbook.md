@@ -25,7 +25,22 @@ docker compose -f infra/docker-compose.yml exec -T db \
   > backups/twenty-$(date +%F).pgcustom
 ```
 
-Also snapshot `infra/volumes/twenty-storage/` (uploaded files).
+Data lives in Docker-managed named volumes (`stoned-goose-hub_twenty-db`
+and `stoned-goose-hub_twenty-storage`). Inspect with:
+
+```sh
+docker volume ls | grep stoned-goose-hub
+docker volume inspect stoned-goose-hub_twenty-storage
+```
+
+To snapshot uploaded files alongside the DB dump:
+
+```sh
+docker run --rm \
+  -v stoned-goose-hub_twenty-storage:/data \
+  -v "$PWD/backups":/backup \
+  alpine tar czf /backup/twenty-storage-$(date +%F).tar.gz -C /data .
+```
 
 ## Restore
 

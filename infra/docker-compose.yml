@@ -4,7 +4,7 @@ services:
   server:
     image: twentycrm/twenty:${TAG:-v2.8.3}
     volumes:
-      - ./volumes/twenty-storage:/app/packages/twenty-server/.local-storage
+      - twenty-storage:/app/packages/twenty-server/.local-storage
     ports:
       - "3000:3000"
     environment:
@@ -24,13 +24,14 @@ services:
       test: curl --fail http://localhost:3000/healthz
       interval: 5s
       timeout: 5s
-      retries: 20
+      retries: 40
+      start_period: 60s
     restart: unless-stopped
 
   worker:
     image: twentycrm/twenty:${TAG:-v2.8.3}
     volumes:
-      - ./volumes/twenty-storage:/app/packages/twenty-server/.local-storage
+      - twenty-storage:/app/packages/twenty-server/.local-storage
     command: ["yarn", "worker:prod"]
     environment:
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
@@ -51,7 +52,7 @@ services:
   db:
     image: postgres:16
     volumes:
-      - ./volumes/twenty-db:/var/lib/postgresql/data
+      - twenty-db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: default
       POSTGRES_USER: ${PG_DATABASE_USER:-postgres}
@@ -72,3 +73,7 @@ services:
       timeout: 5s
       retries: 10
     restart: unless-stopped
+
+volumes:
+  twenty-db:
+  twenty-storage:
