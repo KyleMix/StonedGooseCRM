@@ -1,0 +1,46 @@
+[
+  {
+    "_comment": "PLACEHOLDER PACKAGES — replace these with Stoned Goose's actual offerings. Delete this _comment field on each entry before seeding. Prices in USD.",
+
+    "name": "Single-Camera Comedy Set Recording",
+    "description": "One-camera shoot of a standup set or comedy showcase. Edited highlight + full uncut version delivered.",
+    "basePrice": 750,
+    "inclusions": "1 operator + camera, lavaliere mic from house board, basic color grade, full set + 60s vertical clip"
+  },
+  {
+    "name": "Three-Camera Comedy Night Multi-Cam",
+    "description": "Wide + two close coverage on a comedy night or special. Suitable for YouTube/streaming releases.",
+    "basePrice": 2200,
+    "inclusions": "3 operators, lavs + room mics, multi-cam edit, color, audio mix, full version + 3 vertical clips"
+  },
+  {
+    "name": "Brewery / Venue Promo Video",
+    "description": "Short brand video for a brewery, taproom, or live-music venue. Half-day shoot, one round of revisions.",
+    "basePrice": 1800,
+    "inclusions": "Director + operator, 4hr shoot, B-roll + interview, licensed music, 60-90s edit + 30s + 15s cutdowns"
+  },
+  {
+    "name": "Festival Recap Reel",
+    "description": "Multi-stage / multi-day festival recap, delivered same-day or next-day for social.",
+    "basePrice": 3500,
+    "inclusions": "2 operators across stages, drone if permitted, same/next-day social deliverables, full recap reel"
+  },
+  {
+    "name": "Corporate Event Coverage",
+    "description": "Conference, awards night, or product launch coverage with multiple deliverables.",
+    "basePrice": 2800,
+    "inclusions": "2 operators, audio capture, branded title cards, sizzle reel + speaker cutdowns, raw archive"
+  },
+  {
+    "name": "Wedding Highlight (Documentary Style)",
+    "description": "Half-day or full-day wedding coverage, documentary-style edit.",
+    "basePrice": 2400,
+    "inclusions": "2 operators, audio, drone if permitted, 3-5 min highlight, 30s teaser, raw ceremony archive"
+  },
+  {
+    "name": "Live Music Multi-Cam Recording",
+    "description": "Multi-cam live music show, audio mixed from board feed.",
+    "basePrice": 2600,
+    "inclusions": "3 operators, board audio + ambient mics, full-set multicam, single-song cutdowns"
+  }
+]

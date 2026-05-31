@@ -1,0 +1,28 @@
+[
+  {
+    "_comment": "PLACEHOLDER VENDORS — equipment rentals, post-house specialists, music licensing, drone ops, etc. Each becomes a Twenty Company with contactType=Vendor.",
+
+    "name": "Local Camera Rental House",
+    "city": "REPLACE",
+    "website": "",
+    "notes": "Backup body + long-lens rentals. Net-15 terms."
+  },
+  {
+    "name": "Audio Post Studio",
+    "city": "REPLACE",
+    "website": "",
+    "notes": "Mix engineer for music-heavy multi-cam jobs."
+  },
+  {
+    "name": "Drone Operator Contractor",
+    "city": "REPLACE",
+    "website": "",
+    "notes": "Part 107 certified. Day rate + insurance certificate on file."
+  },
+  {
+    "name": "Music Licensing Library",
+    "city": "REPLACE",
+    "website": "",
+    "notes": "Subscription used for brand/promo work."
+  }
+]

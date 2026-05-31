@@ -39,6 +39,10 @@ cp .env.example .env
 #   openssl rand -base64 32
 # Also set a strong PG_DATABASE_PASSWORD (no special chars).
 
+# Phase B prereqs (Documenso):
+bash scripts/generate-documenso-cert.sh
+# then fill in DOCUMENSO_* secrets in .env
+
 docker compose up -d
 ```
 
@@ -52,12 +56,19 @@ workspace **Stoned Goose Hub**, and recreate the data model per
 apps/twenty/                git submodule → twentyhq/twenty @ v2.8.3
 infra/docker-compose.yml    all services (Phase A + B)
 infra/.env.example          documented secrets
-infra/scripts/              dev helpers (e.g. generate-documenso-cert.sh)
+infra/scripts/
+  generate-documenso-cert.sh
+  seed-stoned-goose.sh      pre-populate workspace from seed-data/
+  seed-stoned-goose.ts      (the script the wrapper runs)
 integrations/
   documenso-webhook/        flips Job.contractSigned on document.completed
   shared/                   Twenty REST client + HMAC verifier
-docs/runbook.md             backup, restore, upgrade, phase-B setup
-docs/twenty-custom-objects.md   custom object/field definitions
+seed-data/                  Packages, Venues, Vendors, Crew JSON
+documenso-templates/        Contract scaffolds (comedy, brewery, festival, etc.)
+docs/
+  runbook.md                Backup, restore, upgrade, phase-B setup
+  twenty-custom-objects.md  Data model spec (source of truth)
+  twenty-workflows.md       Workflow recipes (booking gate, prep tasks, etc.)
 ```
 
 ## Ports
@@ -69,13 +80,23 @@ docs/twenty-custom-objects.md   custom object/field definitions
 | Documenso webhook | http://localhost:3003 (internal) |
 | Mailpit (captured dev email) | <http://localhost:8025> |
 
+## Customizing for Stoned Goose Productions
+
+1. Build the data model in Twenty per `docs/twenty-custom-objects.md`.
+2. Edit the `seed-data/*.json` files with your real Packages, Venues,
+   Vendors, and Crew, then `bash infra/scripts/seed-stoned-goose.sh`
+   to populate the workspace.
+3. Configure the workflows in `docs/twenty-workflows.md` (start with
+   the booking gate; others are optional).
+4. Use the contract scaffolds in `documenso-templates/` as starting
+   points for your Documenso templates. Have an attorney review final
+   language.
+
 ## Phase status
 
-- **Phase A**: Twenty only. Done.
-- **Phase B**: Documenso (e-signature) + webhook glue. Done. See
-  `docs/runbook.md` for first-time setup. Cal.com was evaluated and
-  dropped — its published Docker image bakes `NEXT_PUBLIC_WEBAPP_URL` at
-  build time, which prevents running it on a sibling port to Twenty in
-  the same compose stack. Revisit with a real domain + reverse proxy.
-- **Phase C (deferred)**: Mautic (marketing), Chatwoot (support),
-  InvoiceShelf (invoicing).
+- **Phase A**: Twenty. Done.
+- **Phase B**: Documenso (e-signature) + webhook glue. Done.
+- **Phase C**: out of scope. Cal.com was evaluated and dropped (baked
+  `NEXT_PUBLIC_WEBAPP_URL` is incompatible with running alongside
+  Twenty on a sibling port without a real domain + reverse proxy).
+  Mautic / Chatwoot / InvoiceShelf not pursued.

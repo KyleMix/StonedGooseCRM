@@ -1,0 +1,36 @@
+[
+  {
+    "_comment": "PLACEHOLDER CREW — your recurring freelance crew. Each becomes a Twenty Person with contactType=Crew. Add your own crew with real contact info before seeding.",
+
+    "firstName": "REPLACE",
+    "lastName": "Camera A / Director",
+    "email": "",
+    "phone": "",
+    "city": "",
+    "notes": "Primary A-cam operator. Multi-cam comfortable."
+  },
+  {
+    "firstName": "REPLACE",
+    "lastName": "Camera B",
+    "email": "",
+    "phone": "",
+    "city": "",
+    "notes": "Long-lens / stage close-ups."
+  },
+  {
+    "firstName": "REPLACE",
+    "lastName": "Audio Engineer",
+    "email": "",
+    "phone": "",
+    "city": "",
+    "notes": "Lav + board capture. Owns recorder kit."
+  },
+  {
+    "firstName": "REPLACE",
+    "lastName": "Editor",
+    "email": "",
+    "phone": "",
+    "city": "",
+    "notes": "Quick-turn social edits, color."
+  }
+]

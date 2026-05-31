@@ -151,6 +151,12 @@ email later, replace the `NEXT_PRIVATE_SMTP_*` env vars in
 `infra/docker-compose.yml` (and add matching secrets to `.env`) to point
 at your real SMTP provider.
 
-## Future phases (not started)
+## Future phases (not pursued)
 
-- **Phase C**: add Mautic + Chatwoot + InvoiceShelf.
+Cal.com was evaluated and dropped — its published Docker image bakes
+`NEXT_PUBLIC_WEBAPP_URL` at build time, which prevents running it on a
+sibling port to Twenty without a real domain + reverse proxy.
+
+Phase C (Mautic, Chatwoot, InvoiceShelf) is out of scope. Revisit if
+business needs require marketing automation, customer support, or
+invoicing beyond what Twenty + Documenso provide.

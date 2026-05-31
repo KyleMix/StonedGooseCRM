@@ -1,0 +1,25 @@
+[
+  {
+    "_comment": "PLACEHOLDER VENUES — replace with real recurring venues. Each becomes a Twenty Company with contactType=Venue.",
+
+    "name": "Craft Kitchen Comedy Room",
+    "city": "REPLACE",
+    "address": "REPLACE",
+    "website": "",
+    "notes": "Recurring monthly showcase. House PA. Stage left load-in."
+  },
+  {
+    "name": "Riverside Brewing Taproom",
+    "city": "REPLACE",
+    "address": "REPLACE",
+    "website": "",
+    "notes": "Outdoor patio + indoor stage. Power on east wall only."
+  },
+  {
+    "name": "Summer Sound Festival",
+    "city": "REPLACE",
+    "address": "REPLACE",
+    "website": "",
+    "notes": "Annual two-day festival. Multi-stage. Credentials via promoter."
+  }
+]
