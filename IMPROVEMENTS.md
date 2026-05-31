@@ -3,7 +3,7 @@
 _End-to-end review and hardening pass. All changes are committed as atomic units
 on top of a baseline commit. Everything was verified:_
 
-- **`npm test` → 26/26 pass** (node:test + tsx, no new dependencies)
+- **`npm test` → 25/25 pass** (node:test + tsx, no new dependencies)
 - **`npm run typecheck` (`tsc --noEmit`) → 0 errors**
 - **`npm run build` (`next build`) → ✓ Compiled successfully**
 - **Fresh install** (`prisma migrate deploy` + seed on a throwaway DB) **now works**
@@ -12,7 +12,7 @@ on top of a baseline commit. Everything was verified:_
 ## How to verify
 
 ```bash
-npm test          # 26 tests, 0 failures
+npm test          # 25 tests, 0 failures
 npm run typecheck # tsc --noEmit, 0 errors
 npm run build     # ✓ Compiled successfully
 ```
@@ -142,7 +142,7 @@ rows). FK indexes were deliberately deferred — see recommendations.
 - **Enum validation** is centralized in one `oneOf()` type guard, removing ~12
   repeated cast assertions across `contacts`, `jobs`, `tasks`, `pipeline`,
   `finance`, and `data` actions.
-- **Test coverage** went from 0 → 26 tests over the money rules (§5), the booking
+- **Test coverage** went from 0 → 25 tests over the money rules (§5), the booking
   gate (§5.4), and the date/format helpers — the parts most expensive to get
   wrong.
 - **DX:** `npm test`, `npm run typecheck`, and an `engines.node` floor added.
