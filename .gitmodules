@@ -1,0 +1,3 @@
+[submodule "apps/twenty"]
+	path = apps/twenty
+	url = https://github.com/twentyhq/twenty
