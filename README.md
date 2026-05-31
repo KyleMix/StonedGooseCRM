@@ -36,7 +36,7 @@ workspace **Stoned Goose Hub**, and recreate the data model per
 ## Layout
 
 ```
-apps/twenty/              git submodule → twentyhq/twenty @ v2.8.0
+apps/twenty/              git submodule → twentyhq/twenty @ v2.8.3
 infra/docker-compose.yml  server, worker, db (Postgres 16), redis
 infra/.env.example        documented secrets
 infra/volumes/            bind-mounted data (gitignored)

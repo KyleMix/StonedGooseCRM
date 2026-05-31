@@ -2,7 +2,7 @@ name: stoned-goose-hub
 
 services:
   server:
-    image: twentycrm/twenty:${TAG:-v2.8.0}
+    image: twentycrm/twenty:${TAG:-v2.8.3}
     volumes:
       - ./volumes/twenty-storage:/app/packages/twenty-server/.local-storage
     ports:
@@ -28,7 +28,7 @@ services:
     restart: unless-stopped
 
   worker:
-    image: twentycrm/twenty:${TAG:-v2.8.0}
+    image: twentycrm/twenty:${TAG:-v2.8.3}
     volumes:
       - ./volumes/twenty-storage:/app/packages/twenty-server/.local-storage
     command: ["yarn", "worker:prod"]

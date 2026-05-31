@@ -2,7 +2,7 @@
 
 ## Versions
 
-- Twenty submodule pinned at **v2.8.0** (`apps/twenty`).
+- Twenty submodule pinned at **v2.8.3** (`apps/twenty`).
 - Postgres 16, Redis 7.
 
 ## First boot
