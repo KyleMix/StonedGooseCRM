@@ -28,7 +28,7 @@ npm run build     # ✓ Compiled successfully
 | **Correctness (dates)** | Date values now render and compare on the UTC calendar day, fixing a one-day-early bug for any user west of UTC. |
 | **Type safety** | Added a `oneOf()` type guard; replaced ~12 `LIST.includes(x as (typeof LIST)[number])` cast assertions across all six server-action files and the importer. |
 | **Accessibility / UX** | The shared modal is now a proper `role="dialog"` with `aria-modal`, focus trap, focus restoration, background-scroll lock, and backdrop-click close. |
-| **Testing** | Added a 26-test unit suite for the business-critical pure logic (there was none), plus `test`/`typecheck` scripts. |
+| **Testing** | Added a 25-test unit suite for the business-critical pure logic (there was none), plus `test`/`typecheck` scripts. |
 | **Developer experience** | Added `engines.node`, `npm test`, and `npm run typecheck`. |
 
 The architecture was already in good shape — clean module boundaries
