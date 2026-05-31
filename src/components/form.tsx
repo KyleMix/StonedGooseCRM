@@ -8,7 +8,7 @@
 //  - Field controls: uncontrolled inputs that read `defaultValue`, so editing a
 //    record is just a matter of passing its current values.
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { X } from "lucide-react";
 import type { ActionResult } from "@/lib/action-result";
@@ -27,26 +27,78 @@ export function Modal({
   children: React.ReactNode;
   wide?: boolean;
 }) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
+
   useEffect(() => {
+    if (!open) return;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab") {
+        // Keep keyboard focus inside the dialog while it's open.
+        const focusables = dialogRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        );
+        if (!focusables || focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     }
-    if (open) document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden"; // lock background scroll
+    // Move focus into the dialog (first real input, else the first control).
+    const toFocus = dialogRef.current?.querySelector<HTMLElement>(
+      'input:not([type="hidden"]), select, textarea, button',
+    );
+    toFocus?.focus();
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+      previouslyFocused?.focus?.(); // restore focus to the trigger
+    };
   }, [open, onClose]);
 
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 py-10">
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-4 py-10"
+      onMouseDown={(e) => {
+        // Click on the backdrop (not the dialog) closes it.
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
         className={cn(
           "w-full rounded-xl border border-ink-600 bg-ink-800 shadow-2xl",
           wide ? "max-w-3xl" : "max-w-lg",
         )}
       >
         <div className="flex items-center justify-between border-b border-ink-600 px-5 py-3">
-          <h3 className="font-semibold text-white">{title}</h3>
-          <button onClick={onClose} aria-label="Close" className="rounded p-1 text-zinc-400 hover:text-white">
+          <h3 id={titleId} className="font-semibold text-white">{title}</h3>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="rounded p-1 text-zinc-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-gold/60"
+          >
             <X size={18} />
           </button>
         </div>
