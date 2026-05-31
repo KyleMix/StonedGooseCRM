@@ -4,13 +4,13 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { type ActionResult, ok, fail } from "@/lib/action-result";
 import { str, parseDate } from "@/lib/utils";
-import { CONTACT_TYPES } from "@/lib/constants";
+import { CONTACT_TYPES, oneOf } from "@/lib/constants";
 
 function readContact(formData: FormData) {
   const name = str(formData.get("name"));
   const type = str(formData.get("type"));
   if (!name) return { error: "Name is required." as const };
-  if (!type || !CONTACT_TYPES.includes(type as (typeof CONTACT_TYPES)[number])) {
+  if (!type || !oneOf(CONTACT_TYPES, type)) {
     return { error: "A valid contact type is required." as const };
   }
   return {

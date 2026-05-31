@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { type ActionResult, ok, fail } from "@/lib/action-result";
 import { str, parseDate, parseNullableNumber } from "@/lib/utils";
-import { PIPELINE_STAGES } from "@/lib/constants";
+import { PIPELINE_STAGES, oneOf } from "@/lib/constants";
 
 function refresh() {
   revalidatePath("/pipeline");
@@ -15,7 +15,7 @@ function readLead(formData: FormData) {
   const contactId = str(formData.get("contactId"));
   if (!contactId) return { error: "Pick a contact for this lead." as const };
   const stage = str(formData.get("stage")) ?? PIPELINE_STAGES[0];
-  if (!PIPELINE_STAGES.includes(stage as (typeof PIPELINE_STAGES)[number])) {
+  if (!oneOf(PIPELINE_STAGES, stage)) {
     return { error: "Invalid pipeline stage." as const };
   }
   return {
@@ -61,7 +61,7 @@ export async function deleteLead(formData: FormData): Promise<void> {
 
 // Called directly from the kanban board on drag-and-drop.
 export async function moveLeadStage(id: string, stage: string): Promise<void> {
-  if (!PIPELINE_STAGES.includes(stage as (typeof PIPELINE_STAGES)[number])) return;
+  if (!oneOf(PIPELINE_STAGES, stage)) return;
   await prisma.pipelineEntry.update({ where: { id }, data: { stage } });
   refresh();
 }

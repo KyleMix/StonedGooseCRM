@@ -4,17 +4,17 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { type ActionResult, ok, fail } from "@/lib/action-result";
 import { str, parseDate } from "@/lib/utils";
-import { TASK_PRIORITIES, TASK_STATUSES } from "@/lib/constants";
+import { TASK_PRIORITIES, TASK_STATUSES, oneOf } from "@/lib/constants";
 
 function readTask(formData: FormData) {
   const title = str(formData.get("title"));
   if (!title) return { error: "Task title is required." as const };
   const priority = str(formData.get("priority")) ?? "Med";
   const status = str(formData.get("status")) ?? "Not started";
-  if (!TASK_PRIORITIES.includes(priority as (typeof TASK_PRIORITIES)[number])) {
+  if (!oneOf(TASK_PRIORITIES, priority)) {
     return { error: "Invalid priority." as const };
   }
-  if (!TASK_STATUSES.includes(status as (typeof TASK_STATUSES)[number])) {
+  if (!oneOf(TASK_STATUSES, status)) {
     return { error: "Invalid status." as const };
   }
   return {

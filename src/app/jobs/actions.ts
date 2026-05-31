@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { type ActionResult, ok, fail } from "@/lib/action-result";
 import { str, parseDate, parseNullableNumber, parseBool } from "@/lib/utils";
-import { JOB_STATUSES } from "@/lib/constants";
+import { JOB_STATUSES, oneOf } from "@/lib/constants";
 import { validateStatusChange } from "@/lib/jobs";
 
 function refresh(id?: string) {
@@ -17,7 +17,7 @@ function readJob(formData: FormData) {
   const title = str(formData.get("title"));
   if (!title) return { error: "Job title is required." as const };
   const status = str(formData.get("status")) ?? "Inquiry";
-  if (!JOB_STATUSES.includes(status as (typeof JOB_STATUSES)[number])) {
+  if (!oneOf(JOB_STATUSES, status)) {
     return { error: "Invalid status." as const };
   }
   const contractSigned = parseBool(formData.get("contractSigned"));

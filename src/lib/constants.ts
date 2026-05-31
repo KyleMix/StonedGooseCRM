@@ -1,6 +1,13 @@
 // Central list of allowed enum values. SQLite has no native enums, so these
 // arrays are the single source of truth used by forms, validation, and badges.
 
+// Type-guard: is `value` one of the allowed literals in `list`? Narrows to the
+// union type, replacing repeated `LIST.includes(x as (typeof LIST)[number])`
+// assertions in the server actions and import logic.
+export function oneOf<T extends readonly string[]>(list: T, value: unknown): value is T[number] {
+  return typeof value === "string" && (list as readonly string[]).includes(value);
+}
+
 export const CONTACT_TYPES = [
   "Client",
   "Lead",

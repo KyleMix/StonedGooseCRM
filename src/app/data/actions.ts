@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { type ActionResult, fail } from "@/lib/action-result";
 import { cellStr, cellNum, pick } from "@/lib/datasets";
-import { CONTACT_TYPES, PRICE_CONFIDENCE, OPEX_BASIS, ASSET_CONDITIONS } from "@/lib/constants";
+import { CONTACT_TYPES, PRICE_CONFIDENCE, OPEX_BASIS, ASSET_CONDITIONS, oneOf } from "@/lib/constants";
 
 // Flat result shape (not a discriminated union) so the client can read any
 // field without narrowing gymnastics.
@@ -101,7 +101,7 @@ export async function importWorkbook(_prev: ImportResult, formData: FormData): P
             continue;
           }
           let t = cellStr(pick(row, "Type")) ?? "Lead";
-          if (!CONTACT_TYPES.includes(t as (typeof CONTACT_TYPES)[number])) t = "Lead";
+          if (!oneOf(CONTACT_TYPES, t)) t = "Lead";
           await prisma.contact.create({
             data: {
               name,
@@ -129,7 +129,7 @@ export async function importWorkbook(_prev: ImportResult, formData: FormData): P
             continue;
           }
           let conf = cellStr(pick(row, "Price Confidence", "Price Basis", "Basis")) ?? "Quote needed";
-          if (!PRICE_CONFIDENCE.includes(conf as (typeof PRICE_CONFIDENCE)[number])) conf = "Quote needed";
+          if (!oneOf(PRICE_CONFIDENCE, conf)) conf = "Quote needed";
           await prisma.capitalItem.create({
             data: {
               item,
@@ -155,7 +155,7 @@ export async function importWorkbook(_prev: ImportResult, formData: FormData): P
             continue;
           }
           let basis = cellStr(pick(row, "Basis")) ?? "Needs figure";
-          if (!OPEX_BASIS.includes(basis as (typeof OPEX_BASIS)[number])) basis = "Needs figure";
+          if (!oneOf(OPEX_BASIS, basis)) basis = "Needs figure";
           await prisma.opexItem.create({
             data: {
               item,
@@ -180,7 +180,7 @@ export async function importWorkbook(_prev: ImportResult, formData: FormData): P
             continue;
           }
           let cond = cellStr(pick(row, "Condition")) ?? "Good";
-          if (!ASSET_CONDITIONS.includes(cond as (typeof ASSET_CONDITIONS)[number])) cond = "Good";
+          if (!oneOf(ASSET_CONDITIONS, cond)) cond = "Good";
           await prisma.asset.create({
             data: {
               item,

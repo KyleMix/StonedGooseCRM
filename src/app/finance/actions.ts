@@ -9,6 +9,7 @@ import {
   OPEX_BASIS,
   PAYMENT_STATUSES,
   EXPENSE_RECURRENCE,
+  oneOf,
 } from "@/lib/constants";
 
 function refresh() {
@@ -22,7 +23,7 @@ function readCapital(formData: FormData) {
   const item = str(formData.get("item"));
   if (!item) return { error: "Item name is required." as const };
   const conf = str(formData.get("priceConfidence")) ?? "Quote needed";
-  if (!PRICE_CONFIDENCE.includes(conf as (typeof PRICE_CONFIDENCE)[number])) {
+  if (!oneOf(PRICE_CONFIDENCE, conf)) {
     return { error: "Invalid price-confidence flag." as const };
   }
   return {
@@ -67,7 +68,7 @@ function readOpex(formData: FormData) {
   const item = str(formData.get("item"));
   if (!item) return { error: "Item name is required." as const };
   const basis = str(formData.get("basis")) ?? "Needs figure";
-  if (!OPEX_BASIS.includes(basis as (typeof OPEX_BASIS)[number])) {
+  if (!oneOf(OPEX_BASIS, basis)) {
     return { error: "Invalid basis." as const };
   }
   return {
@@ -109,7 +110,7 @@ export async function deleteOpex(formData: FormData): Promise<void> {
 
 function readRevenue(formData: FormData) {
   const status = str(formData.get("paymentStatus")) ?? "Unpaid";
-  if (!PAYMENT_STATUSES.includes(status as (typeof PAYMENT_STATUSES)[number])) {
+  if (!oneOf(PAYMENT_STATUSES, status)) {
     return { error: "Invalid payment status." as const };
   }
   return {
@@ -156,7 +157,7 @@ export async function deleteRevenue(formData: FormData): Promise<void> {
 
 function readExpense(formData: FormData) {
   const rec = str(formData.get("oneTimeOrRecurring")) ?? "One-time";
-  if (!EXPENSE_RECURRENCE.includes(rec as (typeof EXPENSE_RECURRENCE)[number])) {
+  if (!oneOf(EXPENSE_RECURRENCE, rec)) {
     return { error: "Invalid recurrence." as const };
   }
   return {
