@@ -63,8 +63,9 @@ infra/scripts/
 integrations/
   documenso-webhook/        flips Job.contractSigned on document.completed
   shared/                   Twenty REST client + HMAC verifier
-seed-data/                  Packages, Venues, Vendors, Crew JSON
+seed-data/                  Packages, Venues, Vendors, Crew, SOPs JSON
 documenso-templates/        Contract scaffolds (comedy, brewery, festival, etc.)
+branding/                   Workspace logo + brand assets
 docs/
   runbook.md                Backup, restore, upgrade, phase-B setup
   twenty-custom-objects.md  Data model spec (source of truth)
